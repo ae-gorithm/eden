@@ -6,18 +6,22 @@
 N, M = map(int, input().split())
 nums = list(map(int, input().split()))
 
-count = 0
-for i in range(N):
-  sum = nums[i]
+count, start, end, sum = 0, 0, 0, 0
 
-  if sum == M:
+while True:
+  if end == N and sum < M:
+    break
+
+  if sum < M:
+    sum += nums[end]
+    end += 1
+  elif sum > M:
+    sum -= nums[start]
+    start += 1
+  else:
     count += 1
-    continue
-
-  for j in range(i+1, N):
-    sum += nums[j]
-    if sum == M:
-      count += 1
-      break
+    sum -= nums[start]
+    start += 1
+  
 
 print(count)
