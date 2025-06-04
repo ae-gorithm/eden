@@ -1,6 +1,5 @@
-import itertools
-# 오후 8:26 시작
 # 도영이가 만든 맛있는 음식
+import itertools
 
 N = int(input())
 index, flavors = [], []
