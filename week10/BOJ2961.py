@@ -10,7 +10,6 @@ for i in range(N):
 result = 1000000000
 # 적어도 한개 이상 선택해야 하므로
 for count in range(1, N+1):
-  print
   for idx in itertools.combinations(index, count):
     S, B = flavors[idx[0]][0], flavors[idx[0]][1]
     for i in range(1, count):
