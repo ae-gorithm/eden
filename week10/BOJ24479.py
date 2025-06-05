@@ -1,7 +1,7 @@
 import sys
-sys.setrecursionlimit(100000)
 
 # 알고리즘 수업 - 깊이 우선 탐색 1
+input = sys.stdin.readline
 N, M, R = map(int, input().split())
 
 E = {}
@@ -16,12 +16,14 @@ for _ in range(M):
   E[u].append(v)
   E[v].append(u)
 
+for i in range(1, N+1):
+  E[i].sort()
+
 order = 1
 def dfs(r):
   global order
   visited[r] = order
   order += 1
-  E[r].sort()
   
   for x in E[r]:
     if visited[x] == 0:
