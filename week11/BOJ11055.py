@@ -1,6 +1,6 @@
 # 가장 큰 증가하는 수열
 # 수열 A가 주어졌을 때, 그 수열의 증가하는 부분 수열 중에서 합이 가장 큰 것을 구하는 프로그램
-# dp
+# dp 적용
 
 N = int(input())
 nums = list(map(int, input().split()))

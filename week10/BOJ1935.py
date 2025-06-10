@@ -30,3 +30,6 @@ for p in postfix:
     stack.append(transfer_num(p))
 
 print(f"{stack[0]:.2f}")
+
+# float -> double
+# 파이썬 반올림 -> round 쓰면 안됨
