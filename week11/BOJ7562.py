@@ -3,11 +3,9 @@
 # 8 가지의 경우중, 하나를 선택해서 이동했을 때, 
 # 1. dfs -> 해당 칸에서 또 이동할 수 있는 경우들을 탐색 -> 무한 탐색 (비적절)
 # 2. bfs -> 나머지 7가지의 경우들을 다시 탐색 (적절)
-#
-
 
 # 나이트가 이동할 수 있는 0 ~ l-1 사이의 위치 
-def knight_move(r, c, l, moves):
+def knight_move(r, c, l, moves, visited):
   can_moves = [
     [r-1, c-2], 
     [r-2, c-1], 
@@ -27,17 +25,17 @@ def checking(curpoint, endpoint):
   if (curpoint[0] == endpoint[0]) and (curpoint[1] == endpoint[1]):
     return True
 
-def bfs(l, points, end_point, count):
+def bfs(l, points, end_point, count, visited):
   moves = []
   for cur_point in points:
-    knight_move(cur_point[0], cur_point[1], l, moves)
+    knight_move(cur_point[0], cur_point[1], l, moves, visited)
 
   for move in moves:
     if checking(move, end_point):
       return count
   
   # 이번 카운트에서는 없었음
-  return bfs(l, moves, end_point, count+1)
+  return bfs(l, moves, end_point, count+1, visited)
 
 T = int(input())
 
@@ -46,10 +44,13 @@ for test_case in range(T):
   cur_r, cur_c = map(int, input().split())
   end_r, end_c = map(int, input().split())
   result = 0
+
   if (cur_r == end_r) and (cur_c == end_c):
     result = 0
-  else:
-    result = bfs(I, [[cur_r, cur_c]], [end_r, end_c], 1)
+  else: 
+    # 이전에 방문했었던 내역 기억해야함
+    visited = [[[0] * I] for _ in range(I)]
+    result = bfs(I, [[cur_r, cur_c]], [end_r, end_c], 1, visited)
 
   # 각 케이스별 결과 출력
   print(result)
