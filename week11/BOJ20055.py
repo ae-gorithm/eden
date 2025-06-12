@@ -11,16 +11,17 @@ count = 0
 while True:
   step += 1
   # 1. 벨트와 로봇 회전
-  A.appendleft(A.pop())
-  robots.appendleft(robots.pop())
+  A.rotate(1)
+  robots.rotate(1)
   robots[N-1] = False
 
   # 2. 로봇이 이동
   for i in range(N-2, -1, -1):
     r = robots[i]
-    if r == True:
+    if r :
       if A[i+1] > 0 and not robots[i+1]:
-        robots[i], robots[i+1] = False, True
+        robots[i] = False
+        robots[i+1] = True
         A[i+1] -= 1
         if A[i+1] == 0:
           count += 1
@@ -36,7 +37,7 @@ while True:
           count += 1
 
   # 4. 내구도 0인 칸의 갯수
-  if count == K:
+  if count >= K:
      break
 
 print(step)
