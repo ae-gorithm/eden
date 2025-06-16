@@ -3,8 +3,8 @@
 # 1. k가 소수인지 판단
 # 2. k랑 가장 가까운 두 소수를 구하고 차이를 구하기 ?
 
-def sosu(k):
-  for i in range(2, k):
+def prime(k):
+  for i in range(2, int(k**0.5)+1): 
     if k % i == 0:
       return False
   return True
@@ -15,7 +15,7 @@ for test_case in range(T):
   k = int(input())
   
   # 1. k가 소수인지 판단
-  if sosu(k) == True:
+  if prime(k) == True:
     results.append(0)
     continue
 
@@ -24,12 +24,12 @@ for test_case in range(T):
   p1 = k-1
   p2 = k+1
   while True:
-    if sosu(p1) == True:
+    if prime(p1) == True:
       break
     p1 -= 1
 
   while True:
-    if sosu(p2) == True:
+    if prime(p2) == True:
       break
     p2 += 1
 
