@@ -30,7 +30,6 @@ for num in range(2, int(max ** 0.5) + 1):
     for i in range(num * num, (max + 1), num):
       is_prime[i] = False
 
-results = []
 while True:
   n = int(input())
   if n == 0 :
@@ -40,16 +39,10 @@ while True:
   is_wrong = True
   for a in range(3, n//2+1, 2):
     if is_prime[a] and is_prime[n-a]:
-      results.append([n, a, n-a])
+      print(f"{n} = {a} + {n-a}")
       is_wrong = False
       break
   
   if is_wrong:
-    results.append(["Goldbach's conjecture is wrong."])
+    print("Goldbach's conjecture is wrong.")
     
-for r in results:
-  if len(r) == 1:
-    print(r[0])
-  else:
-    print(f"{r[0]} = {r[1]} + {r[2]}")
-
