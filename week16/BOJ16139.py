@@ -1,65 +1,31 @@
 # 인간-컴퓨터 상호작용
 # 사전에 저장하는 방식
-# { a : [l, r, count] }
+# 누적합
 
 S = list(input())
 q = int(input())
-dict = {}
+
+# 알파벳 
+# a ~ z 를 0 ~ 25로 매핑해서 사용하기
+# idx = ord(a) - ord('a')  
+prefix_sum = [[0] * (len(S)+1) for _ in range(26)]
+
+for i in range(1, len(S)+1):
+  s = S[i-1]
+  for j in range(26):
+    prefix_sum[j][i] = prefix_sum[j][i-1] 
+
+  # 문자열 s의 누적합 증가
+  idx = ord(s) - ord('a')
+  prefix_sum[idx][i] += 1
+
 results = []
-
-for i in range(q):
+for _ in range(q):
   a, l, r = input().split()
-  l = int(l)
-  r = int(r)
-  
-  if a in dict:
-    p_l, p_r, count = dict[a][0], dict[a][1], dict[a][2]
-
-    # 그냥 계산이 나은 경우 - 이전이랑 아예 안겹칠 때
-    if p_r <= l :
-      # l, r 사이의 알파벳 count
-      count = 0
-      for i in range(l, r+1):
-        if S[i] == a :
-          count += 1
-      
-      dict[a] = [l, r, count]
-      results.append(count)
-    
-    else:
-      while (p_l != l):
-        if p_l < l :
-          if S[p_l] == a:
-            count -= 1
-          p_l += 1
-        
-        elif p_l > l:
-          if S[p_l-1] == a:
-            count += 1
-          p_l -=1
-      
-      while (p_r != r):
-        if p_r < r:
-          if S[p_r+1] == a:
-            count += 1  
-          p_r +=1
-        
-        elif p_r > r:
-          if S[p_r] == a:
-            count -= 1
-          p_r -= 1
-        
-      dict[a] = [l, r, count]
-      results.append(count)
-  else:
-    # l, r 사이의 알파벳 count
-    count = 0
-    for i in range(l, r+1):
-      if S[i] == a :
-        count += 1
-    
-    dict[a] = [l, r, count]
-    results.append(count)
+  l, r = int(l) + 1, int(r) + 1
+  prefix = ord(a) - ord('a')
+  count = prefix_sum[prefix][r] - prefix_sum[prefix][l-1]
+  results.append(count)
 
 for r in results:
   print(r)
